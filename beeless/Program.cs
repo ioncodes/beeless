@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+using dnlib.DotNet;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using dnlib.DotNet;
-using dnlib.DotNet.Emit;
 
-namespace beeless
+namespace BeelessTest
 {
     class Program
     {
@@ -21,7 +16,7 @@ namespace beeless
                 var methods = 0;
                 foreach (var method in type.Methods)
                 {
-                    if (method.Name.Length > 10)
+                    if (!method.Name.String.Any(char.IsLower))
                     {
                         method.Name = "method_" + methods;
                         methods++;
@@ -30,7 +25,7 @@ namespace beeless
                     var paramaters = 0;
                     foreach (var paramater in method.Parameters)
                     {
-                        if (paramater.Name.Length > 10)
+                        if (!paramater.Name.Any(char.IsLower))
                         {
                             paramater.Name = "param_" + paramaters;
                             paramaters++;
@@ -40,7 +35,7 @@ namespace beeless
 
                 foreach (var field in type.Fields)
                 {
-                    if (field.Name.Length > 10)
+                    if (!field.Name.String.Any(char.IsLower))
                     {
                         field.Name = "field_" + fields;
                         fields++;
@@ -49,7 +44,7 @@ namespace beeless
 
                 foreach (var property in type.Properties)
                 {
-                    if (property.Name.Length > 10)
+                    if (!property.Name.String.Any(char.IsLower))
                     {
                         property.Name = "property_" + properties;
                         properties++;
